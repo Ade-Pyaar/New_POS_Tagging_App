@@ -13,6 +13,9 @@ B = np.load("B.npy")
 with open("tag_counts.json") as fp:
 
     tag_counts = json.load(fp)
+    
+with open("vocab.json", "r") as file1: 
+        vocab = json.load(file1)
 
 noun_suffix = ["action", "age", "ance", "cy", "dom", "ee", "ence", "er", "hood", "ion", "ism", "ist", "ity", "ling", "ment", "ness", "or", "ry", "scape", "ship", "ty"]
 verb_suffix = ["ate", "ify", "ise", "ize"]
