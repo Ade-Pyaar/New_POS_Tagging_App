@@ -14,11 +14,6 @@ with open("tag_counts.json") as fp:
 
     tag_counts = json.load(fp)
 
-    
-
-with open("v_vocab.json") as fp:
-
-    vocab = json.load(fp)
 noun_suffix = ["action", "age", "ance", "cy", "dom", "ee", "ence", "er", "hood", "ion", "ism", "ist", "ity", "ling", "ment", "ness", "or", "ry", "scape", "ship", "ty"]
 verb_suffix = ["ate", "ify", "ise", "ize"]
 adj_suffix = ["able", "ese", "ful", "i", "ian", "ible", "ic", "ish", "ive", "less", "ly", "ous"]
@@ -88,7 +83,7 @@ def get_emission_and_vocab():
 
 
 
-def my_preprocess(vocab, sentence):
+def my_preprocess(sentence):
     """
     Preprocess data
     """
@@ -337,8 +332,8 @@ def viterbi_backward(corpus):
     
     '''
     
-    best_probs, best_paths = initialize(states, tag_counts, A, B, corpus, v_vocab)
-    best_probs, best_paths = viterbi_forward(A, B, corpus, best_probs, best_paths, v_vocab)
+    best_probs, best_paths = initialize(states, tag_counts, A, B, corpus, vocab)
+    best_probs, best_paths = viterbi_forward(A, B, corpus, best_probs, best_paths, vocab)
 
     
     # Get the number of words in the corpus
