@@ -1,4 +1,4 @@
-from v_utils import viterbi_backward
+from utils import viterbi_backward
 import streamlit as st
 from pandas import read_csv
 
