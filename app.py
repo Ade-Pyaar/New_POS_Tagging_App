@@ -1,4 +1,4 @@
-from utils import viterbi_backward, my_preprocess
+from v_utils import viterbi_backward
 import streamlit as st
 from pandas import read_csv
 
@@ -31,15 +31,20 @@ my_text = st.text_input("Enter your sentence...", "A sample sentence.", max_char
 
 if st.button('Get POS tags', 'run_model'):
     
-    orig, prep = my_preprocess(my_text)
     
-    
-    pred = viterbi_backward(prep)
+    if model_to_use == "simple":
+        vocab, emission_count = get_emission_and_vocab()
+        orig, prep = my_preprocess(my_text)
+        final = predict_pos(prep, emission_count, vocab)
+        
+    else:
+        orig, prep = my_preprocess(my_text)
+        final = viterbi_backward(prep)
     
 
     to_display = {}
 
     for i in range(len(orig)):
-        to_display[orig[i]] = pred[i]
+        to_display[orig[i]] = final[i]
 
     st.write("The POS tags for your sentence are:", to_display)
