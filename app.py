@@ -1,4 +1,4 @@
-from utils import viterbi_backward, my_preprocess
+from utils import viterbi_backward, get_emission_and_vocab, my_preprocess, predict_pos
 import streamlit as st
 from pandas import read_csv
 
