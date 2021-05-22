@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap.css') }}">
+    <link rel="icon" href="{{ url_for('static', filename='favicon.png') }}">
+
+    <title>Auto-predict App</title>
+
+  </head>
+
+  <body>
+    <main role="main" class="container mb-5">
+      <div class="row">
+          <div class="col-md-6">
+              <div class="container mb-5">
+                <br>
+                <p><b>Part of speech tagging app</b></p>
+                <p> The meaning of the tags are below.</p>
+                <p>Type in your sentence below and don't forget to press the enter button before clicking/pressing the button below.</p>
+          
+                <br><br>
+                <form autocomplete="off" method="POST">
+                  <div class="form-group">
+                    <label for="word">Enter a complete sentence:</label>
+                    <input type="text" class="form-control" placeholder="Enter word" name="word" required>
+                  </div>
+                  <div class="form-group">
+                    <label for="verbose">Select a model to use:</label>
+                    <input list="verbose_list" type="text" class="form-control" placeholder="Model to use..." name="model" required>
+                    <datalist id="verbose_list">
+                      <option value="Simple model">
+                      <option value="Hidden Markov model with Virtebi Algorithm">
+                    </datalist>
+                  </div>
+                  <button type="submit" class="btn btn-primary">Predict</button>
+                </form>
+                
+                <br>
+                <div id="result">
+                  <p>The POS tags for your sentence are:</p>
+
+                </div><br><br>
+
+                <button onclick="myFunction()" class="btn btn-primary">Show/Hide meaning of tags</button>
+                <div id="tags_table" style="display: none;">
+                  <br>
+                  <p>This is a list showing the meaning of the tags.</p>
+                </div>
+          </div>
+      </div>
+    </main>
+
+    
+      <script>
+        let sus = JSON.parse(`{{ suggestion|tojson }}`)
+        let ap_sus = ''
+        for(let x in sus) {
+        ap_sus += ` <p>${x} : ${sus[x]}<\p>`;
+        }
+        document.querySelector('#result').innerHTML += ap_sus
+
+        let res = JSON.parse(`{{ result|tojson }}`)
+        let ap_res = ''
+        for(let x in res) {
+        ap_res += ` <p>${x} : ${res[x]}<\p>`;
+        }
+        document.querySelector('#tags_table').innerHTML += ap_res
+
+        function myFunction() {
+          var x = document.querySelector('#tags_table')
+          if (x.style.display === "none") {
+            x.style.display = "block";
+          } else {
+            x.style.display = "none";
+          }
+        }
+      </script>
+    
+     
+    <style>
+      .my_footer {
+        position: fixed;
+        left: 0;
+        bottom: 0;
+        width: 100%;
+        background-color: white;
+        color: black;
+        text-align: center;
+      }
+      </style>
+      
+      <div class="my_footer">
+        Made by Pyaar <br>
+        Email: Adebayoibrahim2468@gmail.com
+      </div>
+  </body>
+</html>

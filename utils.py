@@ -129,14 +129,7 @@ def my_preprocess(sentence):
 
 
 def predict_pos(prep, emission_counts, vocab):
-    '''
-    Input: 
-        prep: a preprocessed sentence to predict POS for
-        emission_counts: a dictionary where the keys are (tag,word) tuples and the value is the count
-        vocab: a dictionary where keys are words in vocabulary and value is an index
-    Output: 
-        tags: a list of POS tags for prep
-    '''
+
     
     pos_list = []
     
@@ -163,29 +156,6 @@ def predict_pos(prep, emission_counts, vocab):
 
 def initialize(states, tag_counts, A, B, corpus, vocab):
 
-    '''
-
-    Input: 
-
-        states: a list of all possible parts-of-speech
-
-        tag_counts: a dictionary mapping each tag to its respective count
-
-        A: Transition Matrix of dimension (num_tags, num_tags)
-
-        B: Emission Matrix of dimension (num_tags, len(vocab))
-
-        corpus: a sequence of words whose POS is to be identified in a list 
-
-        vocab: a dictionary where keys are words in vocabulary and value is an index
-
-    Output:
-
-        best_probs: matrix of dimension (num_tags, len(corpus)) of floats
-
-        best_paths: matrix of dimension (num_tags, len(corpus)) of integers
-
-    '''
 
     num_tags = len(tag_counts)
 
@@ -211,17 +181,7 @@ def initialize(states, tag_counts, A, B, corpus, vocab):
 
 
 def viterbi_forward(A, B, test_corpus, best_probs, best_paths, vocab):
-    '''
-    Input: 
-        A, B: The transition and emission matrices respectively
-        test_corpus: a list containing a preprocessed corpus
-        best_probs: an initilized matrix of dimension (num_tags, len(corpus))
-        best_paths: an initilized matrix of dimension (num_tags, len(corpus))
-        vocab: a dictionary where keys are words in vocabulary and value is an index 
-    Output: 
-        best_probs: a completed matrix of dimension (num_tags, len(corpus))
-        best_paths: a completed matrix of dimension (num_tags, len(corpus))
-    '''
+
     
     num_tags = best_probs.shape[0]
     for i in range(1, len(test_corpus)): 
@@ -242,10 +202,7 @@ def viterbi_forward(A, B, test_corpus, best_probs, best_paths, vocab):
 
 
 def viterbi_backward(corpus):
-    '''
-    This function returns the best path.
-    
-    '''
+
     
     best_probs, best_paths = initialize(states, tag_counts, A, B, corpus, vocab)
     best_probs, best_paths = viterbi_forward(A, B, corpus, best_probs, best_paths, vocab)
